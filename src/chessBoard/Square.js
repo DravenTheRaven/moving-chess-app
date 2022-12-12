@@ -11,35 +11,25 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
   for (let [key, value] of Object.entries(whitePiecesState)) {
     if(value === coordinates) {
       pieceName=key;
-      switch(key) {
-        case 'aWPawn':
-        case 'bWPawn':
-        case 'cWPawn':
-        case 'dWPawn':
-        case 'eWPawn':
-        case 'fWPawn':
-        case 'gWPawn':   
-        case 'hWPawn': 
+      switch(key.substring(2, 4)) {
+        case 'Pa': 
           pieceImage = whitePawn;
           break;
-        case 'qWKnight':
-        case 'kWKnight':
+        case 'Kn':
           pieceImage = whiteKnight;
           break;
-        case 'qWBishop':
-        case 'kWBishop':
+        case 'Bi':
           pieceImage = whiteBishop;
           break;
-        case 'qWRook':
-        case 'kWRook':
+        case 'Ro':
           pieceImage = whiteRook;
           break;
-        case 'wWQueen':
+        case 'Qu':
           pieceImage = whiteQueen;
           break; 
-        case 'wWKing':
+        case 'Ki':
           pieceImage = whiteKing;
-          break; 
+          break;  
       }
     }
   }
@@ -47,33 +37,23 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
   for (let [key, value] of Object.entries(blackPiecesState)) {
     if(value === coordinates) {
       pieceName=key;
-      switch(key) {
-        case 'aBPawn':
-        case 'bBPawn':
-        case 'cBPawn':
-        case 'dBPawn':
-        case 'eBPawn':
-        case 'fBPawn':
-        case 'gBPawn':   
-        case 'hBPawn': 
+      switch(key.substring(2, 4)) {
+        case 'Pa': 
           pieceImage = blackPawn;
           break;
-        case 'qBKnight':
-        case 'kBKnight':
+        case 'Kn':
           pieceImage = blackKnight;
           break;
-        case 'qBBishop':
-        case 'kBBishop':
+        case 'Bi':
           pieceImage = blackBishop;
           break;
-        case 'qBRook':
-        case 'kBRook':
+        case 'Ro':
           pieceImage = blackRook;
           break;
-        case 'bBQueen':
+        case 'Qu':
           pieceImage = blackQueen;
           break; 
-        case 'bBKing':
+        case 'Ki':
           pieceImage = blackKing;
           break; 
       }
