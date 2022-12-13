@@ -8,6 +8,7 @@ import { useState } from 'react'
 import BlackPieces from './chessPieces/BlackPieces';
 
 function App() {
+  const [turnNumber, setTurnNumber] = useState(1)
   const [whitePiecesState, setWhitePieces] = useState({
     aWPawn: 'a2',
     bWPawn: 'b2',
@@ -18,37 +19,65 @@ function App() {
     gWPawn: 'g2',
     hWPawn: 'h2',
     qWRook: 'a1',
-    qWKinght: 'b1',
+    qWKnight: 'b1',
     qWBishop: 'c1',
-    wQueen: 'd1',
-    wKing: 'e1',
+    wWQueen: 'd1',
+    wWKing: 'e1',
     kWBishop: 'f1',
     kWKnight: 'g1',
     kWRook: 'h1'
   })
 
   const [blackPiecesState, setBlackPieces] = useState({
-    aWPawn: 'a7',
-    bWPawn: 'b7',
-    cWPawn: 'c7',
-    dWPawn: 'd7',
-    eWPawn: 'e7',
-    fWPawn: 'f7', 
-    gWPawn: 'g7',
-    hWPawn: 'h7',
-    qWRook: 'a8',
-    qWKinght: 'b8',
-    qWBishop: 'c8',
-    wQueen: 'd8',
-    wKing: 'e8',
-    kWBishop: 'f8',
-    kWKnight: 'g8',
-    kWRook: 'h8'
+    aBPawn: 'a7',
+    bBPawn: 'b7',
+    cBPawn: 'c7',
+    dBPawn: 'd7',
+    eBPawn: 'e7',
+    fBPawn: 'f7', 
+    gBPawn: 'g7',
+    hBPawn: 'h7',
+    qBRook: 'a8',
+    qBKnight: 'b8',
+    qBBishop: 'c8',
+    bBQueen: 'd8',
+    bBKing: 'e8',
+    kBBishop: 'f8',
+    kBKnight: 'g8',
+    kBRook: 'h8'
   })
+
+  const [turn, setTurn] = useState(true)
+
+  function handleTurn() {
+    setTurn(!turn)
+  }
+  
+
+  function handleWhitePieces(pieceName, destination) {
+    setWhitePieces({
+      ...whitePiecesState,
+      [pieceName]: destination
+  })
+
+  }
+
+  function handleBlackPieces(pieceName, destination) {
+    setBlackPieces({
+      ...blackPiecesState,
+      [pieceName]: destination
+  })
+ 
+  }
 
   return (
     <div >
-      <ChessBoard />
+      <ChessBoard whitePiecesState={whitePiecesState}
+                  blackPiecesState={blackPiecesState}
+                  handleBlackPieces={handleBlackPieces}
+                  handleWhitePieces={handleWhitePieces}
+                  turn={turn}
+                  handleTurn={handleTurn}/>
 <img src={blackpawn}/>
 <WhitePieces whitePiecesState={whitePiecesState}/>
 <BlackPieces blackPiecesState={blackPiecesState}/>
