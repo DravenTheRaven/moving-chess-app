@@ -20,7 +20,7 @@ function App() {
     hWPawn: 'h2',
     qWRook: 'a1',
     qWKnight: 'b1',
-    qWBishop: 'c1',
+    qWBishop: 'e5',
     wWQueen: 'd1',
     wWKing: 'e1',
     kWBishop: 'f1',

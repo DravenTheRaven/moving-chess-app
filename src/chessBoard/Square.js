@@ -3,6 +3,7 @@ import { blackPawn, blackKnight, blackBishop, blackRook, blackQueen, blackKing,
 import { useState } from 'react';
 import pawnMove from '../pawnMove';
 import knightMove from '../knightMove';
+import bishopMove from '../bishopMove';
 export default function Square({ whitePiecesState, blackPiecesState, value, rank, file, handleWhitePieces, 
                                  handleBlackPieces, originSquare, handleOriginSquare, activePiece, handleActivePiece, destination, 
                                  handleDestination, turn, handleTurn }) {
@@ -30,7 +31,8 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
           break; 
         case 'Ki':
           pieceImage = whiteKing;
-          break;  
+          break;
+        
       }
     }
   }
@@ -65,14 +67,16 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
 
   function handlePieces() {   
     if(turn === true && (activePiece[1].match(/[W]/) )) {
-    handleWhitePieces(activePiece, coordinates)  
+    handleWhitePieces(activePiece, coordinates)
+    handleTurn()  
     } else if(turn === false && (activePiece[1].match(/[B]/))) {
       handleBlackPieces(activePiece, coordinates)
+      handleTurn()
     }
     handleActivePiece('')
     handleOriginSquare('')
     handleDestination('')
-    handleTurn()
+    
   }
   
   function handleSquare() {
@@ -80,26 +84,28 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
       handleOriginSquare(coordinates);
       handleActivePiece(pieceName);
     } else if(destination === '' && activePiece !== '') {
-      switch(activePiece[2]) {
-        case 'P':
+      switch(activePiece.substring(2, 4)) {
+        case 'Pa':
           pawnMove(activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handleActivePiece, handleOriginSquare, handlePieces, handleDestination)
           break;
-        case 'K':
+        case 'Kn':
           knightMove(activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handleActivePiece, handleOriginSquare, handlePieces, handleDestination)
           console.log('knight');
           break;
-        case 'B':
+        case 'Bi':
+          bishopMove(activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handleActivePiece, handleOriginSquare, handlePieces, handleDestination)
           console.log('bishop');
           break;
-        case 'R':
+        case 'Ro':
           console.log('rook');
           break;
-        case 'Q':
+        case 'Qu':
           console.log('Queen');
           break;
-        case 'K':
+        case 'Ki':
           console.log('King');
           break;
+        
       }  
     }
   }
@@ -109,7 +115,7 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
 
   return(
     <div className='square' onClick={handleSquare} style={{backgroundColor: originSquare === coordinates ? 'red' : 'white'}} >
-      {pieceImage != 0 &&
+      {pieceImage !== 0 &&
       <img src={pieceImage} /> }
       {pieceImage === 0 &&
       <p>{coordinates}</p>}
