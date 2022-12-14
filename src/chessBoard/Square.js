@@ -1,5 +1,4 @@
-import { blackPawn, blackKnight, blackBishop, blackRook, blackQueen, blackKing,
-  whitePawn, whiteKnight, whiteBishop, whiteRook, whiteQueen, whiteKing} from 'index.js'
+
 import { useState } from 'react';
 import pawnMove from '../pawnMove';
 import knightMove from '../knightMove';
@@ -15,22 +14,22 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
       pieceName=key;
       switch(key.substring(2, 4)) {
         case 'Pa': 
-          pieceImage = whitePawn;
+          pieceImage = String.fromCharCode(9817);
           break;
         case 'Kn':
-          pieceImage = whiteKnight;
+          pieceImage = String.fromCharCode(9816);
           break;
         case 'Bi':
-          pieceImage = whiteBishop;
+          pieceImage = String.fromCharCode(9815);
           break;
         case 'Ro':
-          pieceImage = whiteRook;
+          pieceImage = String.fromCharCode(9814);
           break;
         case 'Qu':
-          pieceImage = whiteQueen;
+          pieceImage = String.fromCharCode(9813);
           break; 
         case 'Ki':
-          pieceImage = whiteKing;
+          pieceImage = String.fromCharCode(9812);
           break;
         
       }
@@ -42,22 +41,22 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
       pieceName=key;
       switch(key.substring(2, 4)) {
         case 'Pa': 
-          pieceImage = blackPawn;
+          pieceImage = String.fromCharCode(9823);
           break;
         case 'Kn':
-          pieceImage = blackKnight;
+          pieceImage = String.fromCharCode(9822);
           break;
         case 'Bi':
-          pieceImage = blackBishop;
+          pieceImage = String.fromCharCode(9821);
           break;
         case 'Ro':
-          pieceImage = blackRook;
+          pieceImage = String.fromCharCode(9820);
           break;
         case 'Qu':
-          pieceImage = blackQueen;
+          pieceImage = String.fromCharCode(9819);
           break; 
         case 'Ki':
-          pieceImage = blackKing;
+          pieceImage = String.fromCharCode(9818);
           break; 
       }
     }
@@ -107,6 +106,9 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
           break;
         
       }  
+      handleActivePiece('')
+    handleOriginSquare('')
+    handleDestination('')
     }
   }
  
@@ -116,7 +118,7 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
   return(
     <div className='square' onClick={handleSquare} style={{backgroundColor: originSquare === coordinates ? 'red' : 'white'}} >
       {pieceImage !== 0 &&
-      <img src={pieceImage} /> }
+      <div className='pieceImage'>{pieceImage} </div> }
       {pieceImage === 0 &&
       <p>{coordinates}</p>}
     </div>

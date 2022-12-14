@@ -9,6 +9,7 @@ if(turn === true && (activePiece[1].match(/[W]/) )) {
       let enemyRankDifference = parseFloat(enemeyPieces[x][1]) - parseFloat(originSquare[1])                   
       if(Math.abs(enemyFileDifference) === 1 && enemyRankDifference === 1 && enemeyPieces[x] === coordinates) {
         console.log('can attack')
+       
         handlePieces(activePiece, coordinates)                     
       } else if(coordinates.charCodeAt(0) === originSquare.charCodeAt(0)) {
         console.log('vertical')

@@ -6,24 +6,150 @@ export default function bishopMove(activePiece, coordinates, originSquare, black
 	let rise = endRank - startRank
 	let run = endFile - startFile
 	let m = rise / run
-	console.log(`start file ${startFile} end file ${endFile} run ${run}`)
-	console.log(`start rank ${startRank} end rank ${endRank} rise ${rise}`)
-	console.log(`m ${m}`)  
-
-	switch(m) {
-		case 1:
-			console.log(1)
-			switch(Math.sign(rise)) {
-				case 1:
-					console.log('positive rise')
-					break;
-				case -1: 
-					console.log('negative') 
-			}
-			break;
-		case -1:
-			console.log(-1)
-	}
-
+	let pieceCoordinates = Object.values(blackPiecesState).concat(...Object.values(whitePiecesState));
 	
+	switch(m) {
+		case 1: {		
+			switch(Math.sign(rise)) {
+				case 1: {
+					let pieceInTheWay = []
+					console.log('positive rise')
+					let testRank = parseFloat(startRank) + 1;
+					let testFile = parseFloat(startFile) + 1;
+					for(testFile; testFile < endFile; testFile++) {
+						for(let x = 0; x <= 31; x++) {
+							switch ((String.fromCharCode(parseFloat(testFile) + 96) === pieceCoordinates[x][0])) {
+								case true:
+									switch (parseFloat(pieceCoordinates[x][1]) === testRank) {
+										case true:
+											pieceInTheWay.push(pieceCoordinates[x])
+											console.log('intheway')
+											console.log(true);	
+											break;
+										default:
+											console.log('nope')
+									}
+							}
+						}
+						testRank++
+					}
+					if (pieceInTheWay.length > 0) {
+						handleActivePiece('')
+        		handleOriginSquare('')
+        		handleDestination('')
+					} else {
+						handlePieces(activePiece, coordinates)
+					}
+					console.log(pieceInTheWay)
+				} break;
+				case -1: {
+					let pieceInTheWay = []
+					console.log('negative') 
+					let testRank = parseFloat(startRank) - 1;
+					let testFile = parseFloat(startFile) - 1;
+					for(testFile; testFile > endFile; testFile--) {
+						for(let x = 0; x <= 31; x++) {
+							switch ((String.fromCharCode(parseFloat(testFile) + 96) === pieceCoordinates[x][0])) {
+								case true:
+									switch (parseFloat(pieceCoordinates[x][1]) === testRank) {
+										case true:
+											pieceInTheWay.push(pieceCoordinates[x])
+											console.log('intheway')
+											console.log(true);	
+											break;
+										default:
+											console.log('nope')
+									}
+							}
+						}
+						testRank--
+					
+						}
+						if (pieceInTheWay.length > 0) {
+							handleActivePiece('')
+							handleOriginSquare('')
+							handleDestination('')
+						} else {
+							handlePieces(activePiece, coordinates)
+						}
+						console.log(pieceInTheWay)
+				} break;
+				default:
+			}
+		} break;
+		case -1: {	
+			
+			switch(Math.sign(rise)) {
+				case 1: {
+					let pieceInTheWay = []	
+					console.log('positive rise')
+					let testRank = parseFloat(startRank) + 1;
+					let testFile = parseFloat(startFile) - 1;
+					for(testFile; testFile > endFile; testFile--) {
+						for(let x = 0; x <= 31; x++) {
+							switch ((String.fromCharCode(parseFloat(testFile) + 96) === pieceCoordinates[x][0])) {
+								case true:
+									switch (parseFloat(pieceCoordinates[x][1]) === testRank) {
+										case true:
+											pieceInTheWay.push(pieceCoordinates[x])
+											console.log('intheway')
+											console.log(true);	
+											break;
+										default:
+											console.log('nope')
+									}
+							}
+						}
+						console.log(`${String.fromCharCode(parseFloat(testFile) + 96)} ${testRank} in the middle`)
+						testRank++
+					}
+					if (pieceInTheWay.length > 0) {
+						handleActivePiece('')
+						handleOriginSquare('')
+						handleDestination('')
+					} else {
+						handlePieces(activePiece, coordinates)
+					}
+					console.log(pieceInTheWay)
+			} break;
+				case -1: {
+					let pieceInTheWay = []	
+					console.log('negative') 
+					let testRank = parseFloat(startRank) - 1;
+					let testFile = parseFloat(startFile) + 1;
+					for(testFile; testFile < endFile; testFile++) {
+						for(let x = 0; x <= 31; x++) {
+							switch ((String.fromCharCode(parseFloat(testFile) + 96) === pieceCoordinates[x][0])) {
+								case true:
+									console.log('piece in the way')
+									switch (parseFloat(pieceCoordinates[x][1]) === testRank) {
+										case true:
+											pieceInTheWay.push(pieceCoordinates[x])
+											console.log('intheway')
+											console.log(true);	
+											break;
+										default:
+											console.log('nope')
+									}
+							}
+						}
+						console.log(`${String.fromCharCode(parseFloat(testFile) + 96)} ${testRank} in the middle`)
+						testRank--
+					}
+					if (pieceInTheWay.length > 0) {
+						handleActivePiece('')
+						handleOriginSquare('')
+						handleDestination('')
+					} else {
+						handlePieces(activePiece, coordinates)
+					}
+					console.log(pieceInTheWay)
+				} break;
+				default:
+			}
+			
+		} break;
+		default:
+	}
 }
+

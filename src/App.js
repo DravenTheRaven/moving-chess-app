@@ -1,14 +1,12 @@
-import logo from './logo.svg';
-import React from 'react'
+
+import React from 'react';
 import './App.css';
 import ChessBoard from './chessBoard/ChessBoard';
-import blackpawn from 'chessPieces/piecePics/black-pawn.png'
-import WhitePieces from './chessPieces/WhitePieces';
-import { useState } from 'react'
-import BlackPieces from './chessPieces/BlackPieces';
+import { useState } from 'react';
+
 
 function App() {
-  const [turnNumber, setTurnNumber] = useState(1)
+  const [turnNumber, setTurnNumber] = useState(1);
   const [whitePiecesState, setWhitePieces] = useState({
     aWPawn: 'a2',
     bWPawn: 'b2',
@@ -20,7 +18,7 @@ function App() {
     hWPawn: 'h2',
     qWRook: 'a1',
     qWKnight: 'b1',
-    qWBishop: 'e5',
+    qWBishop: 'c1',
     wWQueen: 'd1',
     wWKing: 'e1',
     kWBishop: 'f1',
@@ -47,27 +45,24 @@ function App() {
     kBRook: 'h8'
   })
 
-  const [turn, setTurn] = useState(true)
+  const [turn, setTurn] = useState(true);
 
   function handleTurn() {
-    setTurn(!turn)
+    setTurn(!turn);
   }
   
-
   function handleWhitePieces(pieceName, destination) {
     setWhitePieces({
       ...whitePiecesState,
       [pieceName]: destination
-  })
-
+    });
   }
 
   function handleBlackPieces(pieceName, destination) {
     setBlackPieces({
       ...blackPiecesState,
       [pieceName]: destination
-  })
- 
+    });
   }
 
   return (
@@ -78,9 +73,6 @@ function App() {
                   handleWhitePieces={handleWhitePieces}
                   turn={turn}
                   handleTurn={handleTurn}/>
-<img src={blackpawn}/>
-<WhitePieces whitePiecesState={whitePiecesState}/>
-<BlackPieces blackPiecesState={blackPiecesState}/>
  </div>
   );
 }

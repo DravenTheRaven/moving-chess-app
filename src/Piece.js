@@ -7,6 +7,7 @@ export default function Piece({ type, location, name }) {
     <div>
       <p>{name}</p>
       <img src={type} />
+      <p>\U+2659</p>
     </div>
   )
 
