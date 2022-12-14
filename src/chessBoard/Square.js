@@ -3,6 +3,7 @@ import { useState } from 'react';
 import pawnMove from '../pawnMove';
 import knightMove from '../knightMove';
 import bishopMove from '../bishopMove';
+import rookMove from '../rookMove';
 export default function Square({ whitePiecesState, blackPiecesState, value, rank, file, handleWhitePieces, 
                                  handleBlackPieces, originSquare, handleOriginSquare, activePiece, handleActivePiece, destination, 
                                  handleDestination, turn, handleTurn }) {
@@ -96,6 +97,7 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
           console.log('bishop');
           break;
         case 'Ro':
+          rookMove(activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handleActivePiece, handleOriginSquare, handlePieces, handleDestination)
           console.log('rook');
           break;
         case 'Qu':
