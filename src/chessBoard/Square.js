@@ -1,4 +1,4 @@
-
+import { checkPieceInTheWay, handlePieceInTheWay, getTestRank, getTestFile, testRankAndFile } from "utils";
 import { useState } from 'react';
 import pawnMove from '../pawnMove';
 import knightMove from '../knightMove';

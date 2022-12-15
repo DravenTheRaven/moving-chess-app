@@ -1,4 +1,4 @@
-import { checkPieceInTheWay, handlePieceInTheWay } from "./utils";
+import { moveValidation, checkPieceInTheWay, handlePieceInTheWay, getTestRank, getTestFile, testRankAndFile } from "./utils";
 
 export default function bishopMove(handleUnselect, activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handleActivePiece, handleOriginSquare, handlePieces, handleDestination) {
   let startFile = (originSquare.charCodeAt(0) - 96);
@@ -16,23 +16,17 @@ export default function bishopMove(handleUnselect, activePiece, coordinates, ori
 				case 1: {
 					let pieceInTheWay = []
 					console.log('positive rise')
-					let testRank = parseFloat(startRank) + 1;
-					let testFile = parseFloat(startFile) + 1;
-					for (testFile; testFile < endFile; testFile++) {
-						checkPieceInTheWay (pieceInTheWay, pieceCoordinates, testFile, testRank)
-						testRank++						
-					}
+					let testRank = getTestRank(startRank, 1);
+					let testFile = getTestFile(startFile, 1);
+					testRankAndFile(testRank, startRank, testFile, startFile, endFile, pieceInTheWay, pieceCoordinates)
 					handlePieceInTheWay(pieceInTheWay, handleUnselect, handlePieces, activePiece, coordinates)	
 				} break;
 				case -1: {
 					let pieceInTheWay = []
 					console.log('negative') 
-					let testRank = parseFloat(startRank) - 1;
-					let testFile = parseFloat(startFile) - 1;
-					for(testFile; testFile > endFile; testFile--) {
-						checkPieceInTheWay (pieceInTheWay, pieceCoordinates, testFile, testRank)
-						testRank--
-					}
+					let testRank = getTestRank(startRank, -1);
+					let testFile = getTestFile(startFile, -1);
+					testRankAndFile(testRank, startRank, testFile, startFile, endFile, pieceInTheWay, pieceCoordinates)
 					handlePieceInTheWay(pieceInTheWay, handleUnselect, handlePieces, activePiece, coordinates)
 				} break;
 				default:
@@ -43,25 +37,17 @@ export default function bishopMove(handleUnselect, activePiece, coordinates, ori
 				case 1: {
 					let pieceInTheWay = []	
 					console.log('positive rise')
-					let testRank = parseFloat(startRank) + 1;
-					let testFile = parseFloat(startFile) - 1;
-					for(testFile; testFile > endFile; testFile--) {
-						checkPieceInTheWay (pieceInTheWay, pieceCoordinates, testFile, testRank)
-						console.log(`${String.fromCharCode(parseFloat(testFile) + 96)} ${testRank} in the middle`)
-						testRank++
-					}
+					let testRank = getTestRank(startRank, 1);
+					let testFile = getTestFile(startFile, -1);
+					testRankAndFile(testRank, startRank, testFile, startFile, endFile, pieceInTheWay, pieceCoordinates)
 					handlePieceInTheWay(pieceInTheWay, handleUnselect, handlePieces, activePiece, coordinates)
 			} break;
 				case -1: {
 					let pieceInTheWay = []	
 					console.log('negative') 
-					let testRank = parseFloat(startRank) - 1;
-					let testFile = parseFloat(startFile) + 1;
-					for(testFile; testFile < endFile; testFile++) {
-						checkPieceInTheWay (pieceInTheWay, pieceCoordinates, testFile, testRank)
-						console.log(`${String.fromCharCode(parseFloat(testFile) + 96)} ${testRank} in the middle`)
-						testRank--
-					}
+					let testRank = getTestRank(startRank, -1);
+					let testFile = getTestFile(startFile, 1);
+					testRankAndFile(testRank, startRank, testFile, startFile, endFile, pieceInTheWay, pieceCoordinates)
 					handlePieceInTheWay(pieceInTheWay, handleUnselect, handlePieces, activePiece, coordinates)
 				} break;
 				default:
