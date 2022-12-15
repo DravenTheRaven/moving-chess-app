@@ -22,13 +22,16 @@ export default function ChessBoard({ whitePiecesState, blackPiecesState, handleW
     setActivePiece(pieceName)
   }
   
-  function handleOriginSquare(coordinates) {
-    setOriginSquare(coordinates)
-  }
 
   function handleDestination(coordinates) {
     setDestination(coordinates)
    
+  }
+
+  function handleUnselect() {
+    handleActivePiece('')
+    handleOriginSquare('')
+    handleDestination('')
   }
 
   const handleIsActive = () => setIsActive(!isActive);
@@ -44,7 +47,7 @@ export default function ChessBoard({ whitePiecesState, blackPiecesState, handleW
                                 file={files[x]} 
                                 key={`${files[x]}${i}`} 
                               
-                          
+                                handleUnselect={handleUnselect}
                                 handleWhitePieces={handleWhitePieces} 
                                 handleBlackPieces={handleBlackPieces}
                                 originSquare={originSquare} 

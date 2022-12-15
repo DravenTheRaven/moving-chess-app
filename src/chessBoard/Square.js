@@ -6,7 +6,7 @@ import bishopMove from '../bishopMove';
 import rookMove from '../rookMove';
 export default function Square({ whitePiecesState, blackPiecesState, value, rank, file, handleWhitePieces, 
                                  handleBlackPieces, originSquare, handleOriginSquare, activePiece, handleActivePiece, destination, 
-                                 handleDestination, turn, handleTurn }) {
+                                 handleDestination, turn, handleTurn, handleUnselect }) {
   let coordinates = file + rank;
   let pieceImage = 0;
   let pieceName = "";
@@ -32,7 +32,7 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
         case 'Ki':
           pieceImage = String.fromCharCode(9812);
           break;
-        
+          default:
       }
     }
   }
@@ -59,6 +59,7 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
         case 'Ki':
           pieceImage = String.fromCharCode(9818);
           break; 
+          default:
       }
     }
   }
@@ -73,9 +74,7 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
       handleBlackPieces(activePiece, coordinates)
       handleTurn()
     }
-    handleActivePiece('')
-    handleOriginSquare('')
-    handleDestination('')
+    handleUnselect()
     
   }
   
@@ -93,11 +92,11 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
           console.log('knight');
           break;
         case 'Bi':
-          bishopMove(activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handleActivePiece, handleOriginSquare, handlePieces, handleDestination)
+          bishopMove(handleUnselect, activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handleActivePiece, handleOriginSquare, handlePieces, handleDestination)
           console.log('bishop');
           break;
         case 'Ro':
-          rookMove(activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handleActivePiece, handleOriginSquare, handlePieces, handleDestination)
+          rookMove(handleUnselect, activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handleActivePiece, handleOriginSquare, handlePieces, handleDestination)
           console.log('rook');
           break;
         case 'Qu':
@@ -106,11 +105,10 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
         case 'Ki':
           console.log('King');
           break;
-        
+        default:
+          console.log('this will probably be the promotion piece')
       }  
-      handleActivePiece('')
-    handleOriginSquare('')
-    handleDestination('')
+      handleUnselect()
     }
   }
  
