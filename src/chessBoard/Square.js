@@ -1,12 +1,7 @@
-import { checkPieceInTheWay, handlePieceInTheWay, getTestRank, getTestFile, testRankAndFile } from "utils";
-import { useState } from 'react';
-import pawnMove from '../pawnMove';
-import knightMove from '../knightMove';
-import bishopMove from '../bishopMove';
-import rookMove from '../rookMove';
+import handleMove from "../chessRules/handleMove";
 export default function Square({ whitePiecesState, blackPiecesState, value, rank, file, handleWhitePieces, 
                                  handleBlackPieces, originSquare, handleOriginSquare, activePiece, handleActivePiece, destination, 
-                                 handleDestination, turn, handleTurn, handleUnselect }) {
+                                 handleDestination, turn, handleTurn, handleUnselect, moveList, handleMoveList, toMove, turnNumber, handlePositionList }) {
   let coordinates = file + rank;
   let pieceImage = 0;
   let pieceName = "";
@@ -64,63 +59,44 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
     }
   }
 
-
-
-  function handlePieces() {   
+  function handlePieces() { 
+    
     if(turn === true && (activePiece[1].match(/[W]/) )) {
-    handleWhitePieces(activePiece, coordinates)
-    handleTurn()  
+      handleWhitePieces(activePiece, coordinates)
+      handleMoveList(activePiece, coordinates, toMove, turnNumber)
+      handlePositionList(blackPiecesState, whitePiecesState)
+      handleTurn()  
     } else if(turn === false && (activePiece[1].match(/[B]/))) {
       handleBlackPieces(activePiece, coordinates)
+      handleMoveList(activePiece, coordinates, toMove, turnNumber)
+      handlePositionList(blackPiecesState, whitePiecesState)
       handleTurn()
     }
-    handleUnselect()
-    
+    handleUnselect()    
   }
   
   function handleSquare() {
     if(originSquare === "" && pieceImage !== 0) {
       handleOriginSquare(coordinates);
       handleActivePiece(pieceName);
+      
     } else if(destination === '' && activePiece !== '') {
-      switch(activePiece.substring(2, 4)) {
-        case 'Pa':
-          pawnMove(activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handleActivePiece, handleOriginSquare, handlePieces, handleDestination)
-          break;
-        case 'Kn':
-          knightMove(activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handleActivePiece, handleOriginSquare, handlePieces, handleDestination)
-          console.log('knight');
-          break;
-        case 'Bi':
-          bishopMove(handleUnselect, activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handleActivePiece, handleOriginSquare, handlePieces, handleDestination)
-          console.log('bishop');
-          break;
-        case 'Ro':
-          rookMove(handleUnselect, activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handleActivePiece, handleOriginSquare, handlePieces, handleDestination)
-          console.log('rook');
-          break;
-        case 'Qu':
-          console.log('Queen');
-          break;
-        case 'Ki':
-          console.log('King');
-          break;
-        default:
-          console.log('this will probably be the promotion piece')
-      }  
-      handleUnselect()
+      handleMove(handleUnselect, activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handlePieces, handleBlackPieces, handleWhitePieces)
     }
   }
  
-
-
-
   return(
-    <div className='square' onClick={handleSquare} style={{backgroundColor: originSquare === coordinates ? 'red' : 'white'}} >
+    <div className='square' 
+         onClick={handleSquare} 
+         style= {{backgroundColor: originSquare 
+          === coordinates ? 'red' : 'white'}} 
+         >
       {pieceImage !== 0 &&
-      <div className='pieceImage'>{pieceImage} </div> }
+        <div className='pieceImage'>{pieceImage} </div> 
+      }
       {pieceImage === 0 &&
-      <p>{coordinates}</p>}
+      <p>{coordinates}</p>
+      }
     </div>
   )
 }

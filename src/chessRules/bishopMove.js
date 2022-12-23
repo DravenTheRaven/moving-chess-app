@@ -1,6 +1,6 @@
-import { moveValidation, checkPieceInTheWay, handlePieceInTheWay, getTestRank, getTestFile, testRankAndFile } from "./utils";
+import { moveValidation, checkPieceInTheWay, handlePieceInTheWay, getTestRank, getTestFile, testRankAndFile } from "../utils";
 
-export default function bishopMove(handleUnselect, activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handleActivePiece, handleOriginSquare, handlePieces, handleDestination) {
+export default function bishopMove(handleUnselect, activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, handlePieces) {
   let startFile = (originSquare.charCodeAt(0) - 96);
 	let endFile = (coordinates.charCodeAt(0) - 96);
 	let startRank = originSquare[1];
@@ -9,13 +9,11 @@ export default function bishopMove(handleUnselect, activePiece, coordinates, ori
 	let run = endFile - startFile
 	let m = rise / run
 	let pieceCoordinates = Object.values(blackPiecesState).concat(...Object.values(whitePiecesState));
-	console.log(pieceCoordinates)
 	switch(m) {
 		case 1: 		
 			switch(Math.sign(rise)) {
 				case 1: {
 					let pieceInTheWay = []
-					console.log('positive rise')
 					let testRank = getTestRank(startRank, 1);
 					let testFile = getTestFile(startFile, 1);
 					testRankAndFile(testRank, startRank, testFile, startFile, endFile, pieceInTheWay, pieceCoordinates)
@@ -23,7 +21,6 @@ export default function bishopMove(handleUnselect, activePiece, coordinates, ori
 				} break;
 				case -1: {
 					let pieceInTheWay = []
-					console.log('negative') 
 					let testRank = getTestRank(startRank, -1);
 					let testFile = getTestFile(startFile, -1);
 					testRankAndFile(testRank, startRank, testFile, startFile, endFile, pieceInTheWay, pieceCoordinates)
@@ -36,7 +33,6 @@ export default function bishopMove(handleUnselect, activePiece, coordinates, ori
 			switch(Math.sign(rise)) {
 				case 1: {
 					let pieceInTheWay = []	
-					console.log('positive rise')
 					let testRank = getTestRank(startRank, 1);
 					let testFile = getTestFile(startFile, -1);
 					testRankAndFile(testRank, startRank, testFile, startFile, endFile, pieceInTheWay, pieceCoordinates)
@@ -44,7 +40,6 @@ export default function bishopMove(handleUnselect, activePiece, coordinates, ori
 			} break;
 				case -1: {
 					let pieceInTheWay = []	
-					console.log('negative') 
 					let testRank = getTestRank(startRank, -1);
 					let testFile = getTestFile(startFile, 1);
 					testRankAndFile(testRank, startRank, testFile, startFile, endFile, pieceInTheWay, pieceCoordinates)

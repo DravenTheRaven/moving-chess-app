@@ -7,6 +7,7 @@ import { useState } from 'react';
 
 function App() {
   const [turnNumber, setTurnNumber] = useState(1);
+  const [toMove, setToMove] = useState('White')
   const [whitePiecesState, setWhitePieces] = useState({
     aWPawn: 'a2',
     bWPawn: 'b2',
@@ -49,6 +50,13 @@ function App() {
 
   function handleTurn() {
     setTurn(!turn);
+    
+    if(toMove === 'White') {
+      setToMove('Black')
+    } else if(toMove === 'Black') {
+      setToMove('White')
+      setTurnNumber(turnNumber + 1)
+    }
   }
   
   function handleWhitePieces(pieceName, destination) {
@@ -72,7 +80,9 @@ function App() {
                   handleBlackPieces={handleBlackPieces}
                   handleWhitePieces={handleWhitePieces}
                   turn={turn}
-                  handleTurn={handleTurn}/>
+                  handleTurn={handleTurn}
+                  toMove={toMove}
+                  turnNumber={turnNumber}/>
  </div>
   );
 }

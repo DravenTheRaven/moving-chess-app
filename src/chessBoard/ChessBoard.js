@@ -1,17 +1,74 @@
 import React from 'react';
-import Square from 'chessBoard/Square.js'
+import { capture } from '../utils.js';
+import Square from './Square.js'
 import { useState } from 'react';
-import { whitePawn, whiteKnight, whiteBishop, whiteRook, whiteQueen, whiteKing} from 'index.js'
 
 
-export default function ChessBoard({ whitePiecesState, blackPiecesState, handleWhitePieces, handleBlackPieces, turn, handleTurn }) {
-  const [isActive, setIsActive] = useState(false);
+
+export default function ChessBoard({ whitePiecesState, blackPiecesState, handleWhitePieces, handleBlackPieces, turn, handleTurn, toMove, turnNumber }) {
+ 
   const [originSquare, setOriginSquare] = useState('');
   const [activePiece, setActivePiece] = useState('');
   const [destination, setDestination] = useState('');
-  const [toMove, setToMove] = useState('white')
+  const [moveList, setMoveList] = useState([]);
+  const [positionList, setPositionList] = useState([])
   let boardList = [];
   let files = ['h', 'g', 'f', 'e', 'd', 'c', 'b', 'a'];
+
+  function handleMoveList(activePiece, coordinates, toMove, turnNumber) {
+    let notation = ''
+    let captureCheck = capture(activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, handleBlackPieces, handleWhitePieces)
+    console.log(captureCheck)
+    if(activePiece.substring(2, 4) === 'Kn') {
+      notation = 'N'
+      switch(captureCheck) {
+        case true:
+          notation = 'Nx'
+          break
+        default:
+          notation = 'N'
+      }
+    } else if (activePiece[2] === 'P') {
+      switch(captureCheck) {
+        case true:
+          notation = originSquare[0] + 'x'
+          break
+        default:
+          notation = ''
+      }
+    } else {
+      notation = activePiece[2]
+      switch(captureCheck) {
+        case true:
+          notation = activePiece[2] + 'x'
+          break
+        default:
+          notation = activePiece[2]
+          break
+        }
+    }
+    if(toMove === 'White') {
+      setMoveList(
+        [
+          ...moveList, ` ${turnNumber}. ${notation}${coordinates}`
+        ]
+      )
+    } else {
+    setMoveList(
+      [
+        ...moveList, ` ${notation}${coordinates}`
+      ]
+    )
+  }
+}
+
+function handlePositionList(blackPiecesState, whitePiecesState) {
+  console.log(Object.entries(blackPiecesState).concat(Object.entries(whitePiecesState)))
+  setPositionList([
+    ...positionList, [toMove, turnNumber], [Object.entries(blackPiecesState).concat(Object.entries(whitePiecesState))]
+  ])
+  
+}
 
   function handleOriginSquare(coordinates) {
     setOriginSquare(coordinates)
@@ -34,7 +91,7 @@ export default function ChessBoard({ whitePiecesState, blackPiecesState, handleW
     handleDestination('')
   }
 
-  const handleIsActive = () => setIsActive(!isActive);
+  
 
   
   for (let i=1; i <= 8; i++) {
@@ -56,16 +113,25 @@ export default function ChessBoard({ whitePiecesState, blackPiecesState, handleW
                                 handleActivePiece={handleActivePiece} 
                                 destination={destination} 
                                  handleDestination={handleDestination} 
-                                 isActive={isActive} 
-                                 handleIsActive={handleIsActive} 
+                                 
                                  turn={turn} 
-                                 handleTurn={handleTurn}/>)
+                                 handleTurn={handleTurn}
+                                 moveList={moveList}
+                                 handleMoveList={handleMoveList}
+                                 toMove={toMove}
+                                 turnNumber={turnNumber}
+                                 handlePositionList={handlePositionList}/>)
     }
   }  
 
   return (
+    <>
     <div id='chessBoard'>
  <div id='squareContain'>{boardList}</div>
  </div>
+ <div id='moveList'>MoveList{moveList}</div>
+ <div id='toMove'>{`${toMove} to move`}</div>
+ <div id='positions'></div>
+ </>
   );
 }
