@@ -9,8 +9,10 @@ function checkPieceInTheWay (pieceInTheWay, pieceCoordinates, testFile, testRank
 function handlePieceInTheWay(pieceInTheWay, handleUnselect, handlePieces, activePiece, coordinates) {
   if (pieceInTheWay.length > 0) {
     handleUnselect()
+    return 'illegal'
   } else {
     handlePieces(activePiece, coordinates)
+    return 'legal'
   }
 }
 
@@ -53,7 +55,7 @@ function capture(activePiece, coordinates, originSquare, blackPiecesState, white
   if(activePiece[1].match(/[W]/)) {
     for (let [key, value] of Object.entries(blackPiecesState)) {
       if(value===coordinates) {
-      console.log(value === coordinates)
+      
       handleBlackPieces(key, '')
       return true
       }
@@ -61,7 +63,7 @@ function capture(activePiece, coordinates, originSquare, blackPiecesState, white
   } else if (activePiece[1].match(/[B]/)) {
     for (let [key, value] of Object.entries(whitePiecesState)) {
       if(value===coordinates) {
-      console.log(value === coordinates)
+      
       handleWhitePieces(key, '')
       return true
       }
@@ -69,13 +71,8 @@ function capture(activePiece, coordinates, originSquare, blackPiecesState, white
 }
 }
 
-function checkCheck(whitePiecesState,blackPiecesState, turn){
-  if (turn === true) {
-    for (let x of Object.values(whitePiecesState)) {
-      
-    }
-  }
-}
+
+
 
   export { capture, checkPieceInTheWay, handlePieceInTheWay, getTestRank, getTestFile, testRankAndFile }
 

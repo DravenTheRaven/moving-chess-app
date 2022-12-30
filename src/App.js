@@ -1,9 +1,7 @@
-
 import React from 'react';
 import './App.css';
 import ChessBoard from './chessBoard/ChessBoard';
 import { useState } from 'react';
-
 
 function App() {
   const [turnNumber, setTurnNumber] = useState(1);
@@ -50,7 +48,6 @@ function App() {
 
   function handleTurn() {
     setTurn(!turn);
-    
     if(toMove === 'White') {
       setToMove('Black')
     } else if(toMove === 'Black') {

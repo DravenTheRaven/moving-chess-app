@@ -1,4 +1,5 @@
 import handleMove from "../chessRules/handleMove";
+import checkLegalMoves from "../checkLegalMoves";
 export default function Square({ whitePiecesState, blackPiecesState, value, rank, file, handleWhitePieces, 
                                  handleBlackPieces, originSquare, handleOriginSquare, activePiece, handleActivePiece, destination, 
                                  handleDestination, turn, handleTurn, handleUnselect, moveList, handleMoveList, toMove, turnNumber, handlePositionList }) {
@@ -60,7 +61,6 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
   }
 
   function handlePieces() { 
-    
     if(turn === true && (activePiece[1].match(/[W]/) )) {
       handleWhitePieces(activePiece, coordinates)
       handleMoveList(activePiece, coordinates, toMove, turnNumber)
@@ -79,6 +79,8 @@ export default function Square({ whitePiecesState, blackPiecesState, value, rank
     if(originSquare === "" && pieceImage !== 0) {
       handleOriginSquare(coordinates);
       handleActivePiece(pieceName);
+      checkLegalMoves(pieceName, coordinates, blackPiecesState, whitePiecesState)
+      console.log(pieceName)
       
     } else if(destination === '' && activePiece !== '') {
       handleMove(handleUnselect, activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handlePieces, handleBlackPieces, handleWhitePieces)

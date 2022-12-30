@@ -1,12 +1,10 @@
 import React from 'react';
 import { capture } from '../utils.js';
 import Square from './Square.js'
+import checkLegalMoves from '../checkLegalMoves.js';
 import { useState } from 'react';
 
-
-
 export default function ChessBoard({ whitePiecesState, blackPiecesState, handleWhitePieces, handleBlackPieces, turn, handleTurn, toMove, turnNumber }) {
- 
   const [originSquare, setOriginSquare] = useState('');
   const [activePiece, setActivePiece] = useState('');
   const [destination, setDestination] = useState('');
@@ -18,7 +16,6 @@ export default function ChessBoard({ whitePiecesState, blackPiecesState, handleW
   function handleMoveList(activePiece, coordinates, toMove, turnNumber) {
     let notation = ''
     let captureCheck = capture(activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, handleBlackPieces, handleWhitePieces)
-    console.log(captureCheck)
     if(activePiece.substring(2, 4) === 'Kn') {
       notation = 'N'
       switch(captureCheck) {
@@ -45,7 +42,7 @@ export default function ChessBoard({ whitePiecesState, blackPiecesState, handleW
         default:
           notation = activePiece[2]
           break
-        }
+      }
     }
     if(toMove === 'White') {
       setMoveList(
@@ -54,35 +51,32 @@ export default function ChessBoard({ whitePiecesState, blackPiecesState, handleW
         ]
       )
     } else {
-    setMoveList(
-      [
-        ...moveList, ` ${notation}${coordinates}`
-      ]
-    )
+      setMoveList(
+        [
+          ...moveList, ` ${notation}${coordinates}`
+        ]
+      )
+    }
   }
-}
 
-function handlePositionList(blackPiecesState, whitePiecesState) {
-  console.log(Object.entries(blackPiecesState).concat(Object.entries(whitePiecesState)))
-  setPositionList([
-    ...positionList, [toMove, turnNumber], [Object.entries(blackPiecesState).concat(Object.entries(whitePiecesState))]
-  ])
-  
-}
+  function handlePositionList(blackPiecesState, whitePiecesState) {
+    
+    setPositionList([
+      ...positionList, [toMove, turnNumber], [Object.entries(blackPiecesState).concat(Object.entries(whitePiecesState))]
+    ]) 
+  }
 
   function handleOriginSquare(coordinates) {
-    setOriginSquare(coordinates)
+    setOriginSquare(coordinates)  
+  }
+  
+  function handleActivePiece(pieceName, coordinates, blackPiecesState, whitePiecesState) {
+    setActivePiece(pieceName)
     
   }
   
-  function handleActivePiece(pieceName) {
-    setActivePiece(pieceName)
-  }
-  
-
   function handleDestination(coordinates) {
-    setDestination(coordinates)
-   
+    setDestination(coordinates) 
   }
 
   function handleUnselect() {
@@ -91,47 +85,44 @@ function handlePositionList(blackPiecesState, whitePiecesState) {
     handleDestination('')
   }
 
-  
-
-  
   for (let i=1; i <= 8; i++) {
     for (let x in files) {
-      boardList.unshift(<Square whitePiecesState={whitePiecesState} 
-                                blackPiecesState={blackPiecesState} 
-                                className='square' 
-                                value={`${files[x]}${i}`} 
-                                rank={i} 
-                                file={files[x]} 
-                                key={`${files[x]}${i}`} 
-                              
-                                handleUnselect={handleUnselect}
-                                handleWhitePieces={handleWhitePieces} 
-                                handleBlackPieces={handleBlackPieces}
-                                originSquare={originSquare} 
-                                handleOriginSquare={handleOriginSquare} 
-                                activePiece={activePiece} 
-                                handleActivePiece={handleActivePiece} 
-                                destination={destination} 
-                                 handleDestination={handleDestination} 
-                                 
-                                 turn={turn} 
-                                 handleTurn={handleTurn}
-                                 moveList={moveList}
-                                 handleMoveList={handleMoveList}
-                                 toMove={toMove}
-                                 turnNumber={turnNumber}
-                                 handlePositionList={handlePositionList}/>)
+      boardList.unshift(
+          <Square whitePiecesState={whitePiecesState} 
+                  blackPiecesState={blackPiecesState} 
+                  className='square' 
+                  value={`${files[x]}${i}`} 
+                  rank={i} 
+                  file={files[x]} 
+                  key={`${files[x]}${i}`} 
+                  handleUnselect={handleUnselect}
+                  handleWhitePieces={handleWhitePieces} 
+                  handleBlackPieces={handleBlackPieces}
+                  originSquare={originSquare} 
+                  handleOriginSquare={handleOriginSquare} 
+                  activePiece={activePiece} 
+                  handleActivePiece={handleActivePiece} 
+                  destination={destination} 
+                  handleDestination={handleDestination}   
+                  turn={turn} 
+                  handleTurn={handleTurn}
+                  moveList={moveList}
+                  handleMoveList={handleMoveList}
+                  toMove={toMove}
+                  turnNumber={turnNumber}
+                  handlePositionList={handlePositionList}
+                  />)
     }
   }  
 
   return (
     <>
-    <div id='chessBoard'>
- <div id='squareContain'>{boardList}</div>
- </div>
- <div id='moveList'>MoveList{moveList}</div>
- <div id='toMove'>{`${toMove} to move`}</div>
- <div id='positions'></div>
- </>
+      <div id='chessBoard'>
+        <div id='squareContain'>{boardList}</div>
+      </div>
+      <div id='moveList'>MoveList{moveList}</div>
+      <div id='toMove'>{`${toMove} to move`}</div>
+      <div id='positions'></div>
+    </>
   );
 }

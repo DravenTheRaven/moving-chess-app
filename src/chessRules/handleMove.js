@@ -10,10 +10,25 @@ export default function handleMove(handleUnselect, activePiece, coordinates, ori
     bishopMove(handleUnselect, activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, handlePieces)
     rookMove(handleUnselect, activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, handlePieces)
   }
-
+  if (turn===true) {
+    for (let x of Object.values(whitePiecesState)) {
+      if (x===coordinates) {
+        handleUnselect()
+        return false
+      }
+    }
+  } else if (turn === false) {
+    for (let x of Object.values(blackPiecesState)) {
+      if (x===coordinates) {
+        handleUnselect()
+        return false
+      }
+    }
+  }
   switch(activePiece.substring(2, 4)) {
     case 'Pa':
       pawnMove(handleUnselect, activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handlePieces, handleBlackPieces, handleWhitePieces)
+      console.log(pawnMove(handleUnselect, activePiece, coordinates, originSquare, blackPiecesState, whitePiecesState, turn, handlePieces, handleBlackPieces, handleWhitePieces))
       break;
     case 'Kn':
       knightMove(handleUnselect, activePiece, coordinates, originSquare, handlePieces)
