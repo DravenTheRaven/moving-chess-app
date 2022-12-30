@@ -1,87 +1,67 @@
-import logo from './logo.svg';
 import React from 'react'
-import './App.css';
-import ChessBoard from './chessBoard/ChessBoard';
-import blackpawn from 'chessPieces/piecePics/black-pawn.png'
-import WhitePieces from './chessPieces/WhitePieces';
 import { useState } from 'react'
-import BlackPieces from './chessPieces/BlackPieces';
+
+import Board from './gameWidgets/Board.js'
+import MoveList from './gameWidgets/MoveList.js';
+import ToMove from './gameWidgets/ToMove.js';
+import CapturedPieces from './gameWidgets/CapturedPieces.js';
+import './App.css';
+
 
 function App() {
-  const [whitePiecesState, setWhitePieces] = useState({
-    aWPawn: 'a2',
-    bWPawn: 'b2',
-    cWPawn: 'c2',
-    dWPawn: 'd2',
-    eWPawn: 'e2',
-    fWPawn: 'f2', 
-    gWPawn: 'g2',
-    hWPawn: 'h2',
-    qWRook: 'a1',
-    qWKnight: 'b1',
-    qWBishop: 'c1',
-    wWQueen: 'd1',
-    wWKing: 'e1',
-    kWBishop: 'f1',
-    kWKnight: 'g1',
-    kWRook: 'h1'
+  const [pieces, setPieces] = useState({
+    wWKing: '51',
+    wWQueen: '41',
+    qWRook: '11',
+    kWRook: '81',
+    qWBishop: '31',
+    kWBishop: '61',
+    qWKnight: '21',
+    kWKnight: '71',
+    aWPawn: '12',
+    bWPawn: '22',
+    cWPawn: '32',
+    dWPawn: '42',
+    eWPawn: '52',
+    fWPawn: '62', 
+    gWPawn: '72',
+    hWPawn: '82',
+    bBKing: '58',
+    bBQueen: '48',
+    qBRook: '18',
+    kBRook: '88',
+    qBBishop: '38',
+    kBBishop: '68',
+    qBKnight: '28',
+    kBKnight: '78',
+    aBPawn: '17',
+    bBPawn: '27',
+    cBPawn: '37',
+    dBPawn: '47',
+    eBPawn: '57',
+    fBPawn: '67', 
+    gBPawn: '77',
+    hBPawn: '87',
   })
 
-  const [blackPiecesState, setBlackPieces] = useState({
-    aBPawn: 'a7',
-    bBPawn: 'b7',
-    cBPawn: 'c7',
-    dBPawn: 'd7',
-    eBPawn: 'e7',
-    fBPawn: 'f7', 
-    gBPawn: 'g7',
-    hBPawn: 'h7',
-    qBRook: 'a8',
-    qBKnight: 'b8',
-    qBBishop: 'c8',
-    bBQueen: 'd8',
-    bBKing: 'e8',
-    kBBishop: 'f8',
-    kBKnight: 'g8',
-    kBRook: 'h8'
-  })
-
-  const [turn, setTurn] = useState(true)
-
-  function handleTurn() {
-    setTurn(!turn)
+  function handlPieces(pieceName, destination) {
+    setPieces({
+      ...pieces,
+      [pieceName]: destination
+    });
   }
+
   
-
-  function handleWhitePieces(pieceName, destination) {
-    setWhitePieces({
-      ...whitePiecesState,
-      [pieceName]: destination
-  })
-
-  }
-
-  function handleBlackPieces(pieceName, destination) {
-    setBlackPieces({
-      ...blackPiecesState,
-      [pieceName]: destination
-  })
- 
-  }
-
-  return (
-    <div >
-      <ChessBoard whitePiecesState={whitePiecesState}
-                  blackPiecesState={blackPiecesState}
-                  handleWhitePieces={handleWhitePieces}
-                  handleBlackPieces={handleBlackPieces}
-                  turn={turn}
-                  handleTurn={handleTurn}/>
-<img src={blackpawn}/>
-<WhitePieces whitePiecesState={whitePiecesState}/>
-<BlackPieces blackPiecesState={blackPiecesState}/>
- </div>
-  );
+  
+ return(
+  <>
+  <Board pieces={pieces}
+         handlePieces={handlPieces}/>
+  <MoveList />
+  <ToMove />
+  <CapturedPieces />
+  </>
+ )
 }
 
 export default App;
