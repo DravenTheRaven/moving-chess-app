@@ -16,6 +16,7 @@ export default function Square({ value, rank, file, coordinates, pieces, handleA
       handleActivePiece('')
       handleOriginSquare('')
     }
+    console.log(`piece${activePiece} coord ${coordinates}`)
   }
   
 /*if you have the coordinates be real numbers, you can add/subtract 10
