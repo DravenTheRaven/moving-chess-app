@@ -9,6 +9,8 @@ import './App.css';
 
 
 function App() {
+  const [turnNumber, setTurnNumber] = useState(1);
+  const [toMove, setToMove] = useState('White')
   const [pieces, setPieces] = useState({
     wWKing: '51',
     wWQueen: '41',
@@ -44,11 +46,24 @@ function App() {
     hBPawn: '87',
   })
 
-  function handlPieces(pieceName, destination) {
+  function handlePieces(pieceName, coordinates) {
     setPieces({
       ...pieces,
-      [pieceName]: destination
+      [pieceName]: coordinates
     });
+  }
+
+  const [turn, setTurn] = useState(true);
+
+  function handleTurn() {
+    setTurn(!turn);
+    if(toMove === 'White') {
+      setToMove('Black')
+    } else if(toMove === 'Black') {
+      setToMove('White')
+      setTurnNumber(turnNumber + 1)
+    }
+    console.log(turn)
   }
 
   
@@ -56,9 +71,10 @@ function App() {
  return(
   <>
   <Board pieces={pieces}
-         handlePieces={handlPieces}/>
+         handlePieces={handlePieces}
+         handleTurn={handleTurn}/>
   <MoveList />
-  <ToMove />
+  <ToMove toMove={toMove}/>
   <CapturedPieces />
   </>
  )

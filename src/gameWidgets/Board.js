@@ -4,7 +4,7 @@ import ToMove from './ToMove.js';
 
 import { useState } from 'react';
 
-export default function Board({ pieces, handlePieces }) {
+export default function Board({ pieces, handlePieces, handleTurn }) {
   let [activePiece, setActivePiece] = useState('');
   let [originSquare, setOriginSquare] = useState('');
   let [destination, setDestination] = useState('');
@@ -51,6 +51,7 @@ export default function Board({ pieces, handlePieces }) {
                 destination ={destination}
                 handleDestination={handleDestination}
                 handlePieces={handlePieces}
+                handleTurn={handleTurn}
                 />)
 
     }
@@ -64,7 +65,7 @@ export default function Board({ pieces, handlePieces }) {
       <div id='squareContain'>{boardList}</div>
     </div>
     <MoveList/>
-    <ToMove/>
+    
   
     <div id='positions'></div>
   </>

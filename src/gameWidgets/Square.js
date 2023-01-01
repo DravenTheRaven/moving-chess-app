@@ -1,6 +1,6 @@
 import handleMove from "../handleMove";
 
-export default function Square({ value, rank, file, coordinates, pieces, handleActivePiece, handleOriginSquare, originSquare, activePiece, destination, handleDestination, handlePieces }) {
+export default function Square({ value, rank, file, coordinates, pieces, handleActivePiece, handleOriginSquare, originSquare, activePiece, destination, handleDestination, handlePieces, handleTurn }) {
   let pieceImage = 0;
   let pieceName = '';
 
@@ -10,13 +10,18 @@ export default function Square({ value, rank, file, coordinates, pieces, handleA
     if(originSquare === "" && pieceImage !== 0) {
       handleActivePiece(pieceName)
       handleOriginSquare(coordinates)
+      console.log(pieceName)
+    } else if ( activePiece !== ''){
+      console.log(coordinates)
+     
+      handlePieces(activePiece, coordinates)
+      handleTurn()
+      handleActivePiece('')
+      handleOriginSquare('')
     } else {
-      handleDestination(coordinates)
-      handlePieces(pieceName, destination)
       handleActivePiece('')
       handleOriginSquare('')
     }
-    console.log(`piece${activePiece} coord ${coordinates}`)
   }
   
 /*if you have the coordinates be real numbers, you can add/subtract 10

@@ -1,8 +1,8 @@
-export default function ToMove() {
+export default function ToMove({ toMove }) {
   return(
     <>
       <div>
-        to move 
+        {`to move ${toMove}`}
       </div>
     </>
   )
