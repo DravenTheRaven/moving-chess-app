@@ -10,10 +10,12 @@ export default function Square({ value, rank, file, coordinates, pieces, handleA
     if(originSquare === "" && pieceImage !== 0) {
       handleActivePiece(pieceName)
       handleOriginSquare(coordinates)
+      let legalMoves = handleMove(activePiece, originSquare, coordinates, pieces)
+      console.log(legalMoves)
       console.log(pieceName)
     } else if ( activePiece !== ''){
       console.log(coordinates)
-     
+      
       handlePieces(activePiece, coordinates)
       handleTurn()
       handleActivePiece('')
