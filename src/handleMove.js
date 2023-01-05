@@ -4,13 +4,13 @@ import pawnMove from "./moveValidation/pawnMove";
 import bishopMove from "./moveValidation/bishopMove";
 import queenMove from "./moveValidation/queenMove";
 
-export default function handleMove(activePiece, originSquare, coordinates , pieces) {
+export default function handleMove(activePiece, pieces) {
   let legalMoves = [];
   let pieceInTheWay = [];
  
   for (let [key, value] of Object.entries(pieces)) {
-    for (let i = 0; i < 88; i++) {
-      if(i % 10 !== 0 && i > 10) {
+    for (let i = 0; i < 89; i++) {
+      if(i % 10 !== 0 && i > 10 && i.toString()[1] !== '9') {
         switch(key.substring(2,4)) { 
           case 'Ro':
             rookMove(value, i, legalMoves, key)
@@ -32,6 +32,6 @@ export default function handleMove(activePiece, originSquare, coordinates , piec
       }
     }
   }
-  console.log(legalMoves )
+ 
   return legalMoves
 }

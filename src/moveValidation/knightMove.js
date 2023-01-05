@@ -4,7 +4,7 @@ export default function knightMove(value, i, legalMoves, key) {
     case 12:
     case 19:
     case 21:
-      console.log('legal')
+      
       legalMoves.push([key, i] )
       break
     default:

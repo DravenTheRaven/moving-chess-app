@@ -12,14 +12,12 @@ export default function Board({ pieces, handlePieces, handleTurn }) {
     /*on click events. the first chooses a piece and finds its legal moves*/ 
   function handleActivePiece(pieceName) {
     setActivePiece(pieceName)
-    
   }
   
   function handleOriginSquare(coordinates) {
     setOriginSquare(coordinates)
   }
   
-
   function handleDestination(coordinates) {
     setDestination(coordinates)
   }
@@ -52,22 +50,16 @@ export default function Board({ pieces, handlePieces, handleTurn }) {
                 handleDestination={handleDestination}
                 handlePieces={handlePieces}
                 handleTurn={handleTurn}
-                />)
-
+        />
+      )
     }
   }
 
-
-
   return(
     <>
-    <div id='chessBoard'>
-      <div id='squareContain'>{boardList}</div>
-    </div>
-    <MoveList/>
-    
-  
-    <div id='positions'></div>
-  </>
+      <div id='chessBoard'>
+        <div id='squareContain'>{boardList}</div>
+      </div>
+    </>
   )
 }

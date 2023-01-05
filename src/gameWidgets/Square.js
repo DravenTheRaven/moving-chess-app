@@ -3,21 +3,25 @@ import handleMove from "../handleMove";
 export default function Square({ value, rank, file, coordinates, pieces, handleActivePiece, handleOriginSquare, originSquare, activePiece, destination, handleDestination, handlePieces, handleTurn }) {
   let pieceImage = 0;
   let pieceName = '';
-
   
-
   function handleSquare() {
+    let legalMoves = handleMove(activePiece, pieces)
     if(originSquare === "" && pieceImage !== 0) {
       handleActivePiece(pieceName)
       handleOriginSquare(coordinates)
-      let legalMoves = handleMove(activePiece, originSquare, coordinates, pieces)
-      console.log(legalMoves)
-      console.log(pieceName)
-    } else if ( activePiece !== ''){
-      console.log(coordinates)
       
-      handlePieces(activePiece, coordinates)
+      
+    } else if ( activePiece !== ''){
+      for (let x of legalMoves) {
+        if (x[0] === activePiece && parseFloat(x[1]) === parseFloat(coordinates)) {
+          console.log(x[1])
+          handlePieces(activePiece, coordinates)
       handleTurn()
+      handleActivePiece('')
+      handleOriginSquare('')
+        }
+      }
+      console.log(coordinates)      
       handleActivePiece('')
       handleOriginSquare('')
     } else {

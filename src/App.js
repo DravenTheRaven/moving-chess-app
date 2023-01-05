@@ -1,6 +1,5 @@
 import React from 'react'
 import { useState } from 'react'
-
 import Board from './gameWidgets/Board.js'
 import MoveList from './gameWidgets/MoveList.js';
 import ToMove from './gameWidgets/ToMove.js';
@@ -11,6 +10,7 @@ import './App.css';
 function App() {
   const [turnNumber, setTurnNumber] = useState(1);
   const [toMove, setToMove] = useState('White')
+  const [turn, setTurn] = useState(true);
   const [pieces, setPieces] = useState({
     wWKing: '51',
     wWQueen: '41',
@@ -53,8 +53,6 @@ function App() {
     });
   }
 
-  const [turn, setTurn] = useState(true);
-
   function handleTurn() {
     setTurn(!turn);
     if(toMove === 'White') {
@@ -65,8 +63,6 @@ function App() {
     }
     console.log(turn)
   }
-
-  
   
  return(
   <>
